@@ -58,6 +58,37 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  
+  function playAudio(event){
+
+    if(event.type === 'click'){
+      var eventKey = event.currentTarget.dataset.key;
+
+    } else {
+      var eventKey =  event.keyCode
+    }
+    var audio = document.querySelector(`audio[data-key="${eventKey}"]`);
+    var key = document.querySelector(`.key[data-key="${eventKey}"]`)
+    if (! audio) return; //stop function
+    audio.currentTime = 0; //rewind to the start
+    audio.play();
+    key.classList.add('playing');
+  }
+  
+  function removeTransition(event) {
+    // console.log(event);
+    if (event.propertyName !== 'transform') return; //skip if not transform as there a more than one transition that occurrs (ei border sides)
+    //you can use this as it is equal to whatever it got called against it (key)
+    this.classList.remove('playing');
+  }
+  
+  const keys = document.querySelectorAll('.key');
+  // console.log(keys);
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  keys.forEach(key => key.addEventListener('click', playAudio));
+
+  window.addEventListener('keydown', playAudio);
+  // document.getElementsByClassName('key').addEventListener('click', playAudio);
 
 </script>
 
