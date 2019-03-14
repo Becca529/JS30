@@ -76,19 +76,15 @@
   }
   
   function removeTransition(event) {
-    // console.log(event);
     if (event.propertyName !== 'transform') return; //skip if not transform as there a more than one transition that occurrs (ei border sides)
     //you can use this as it is equal to whatever it got called against it (key)
     this.classList.remove('playing');
   }
   
   const keys = document.querySelectorAll('.key');
-  // console.log(keys);
   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
   keys.forEach(key => key.addEventListener('click', playAudio));
-
   window.addEventListener('keydown', playAudio);
-  // document.getElementsByClassName('key').addEventListener('click', playAudio);
 
 </script>
 
